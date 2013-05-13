@@ -1,5 +1,9 @@
 (function (){
-	var level = 1;
+	var level = 0;
+	var firstNumber = 0;
+	var secondNumber = 0;
+	var operator = "";
+
 	function setColours(){
 		switch(level){
 			case 0: //Beggining the introduction of a number
@@ -69,11 +73,58 @@
 				document.querySelector("#buttonDivide").className = "button green";
 				document.querySelector("#buttonMult").className = "button red";
 				document.querySelector("#buttonMinus").className = "button yellow";
-				document.querySelector("#buttonDel").className = "buttonwhite";
+				document.querySelector("#buttonDel").className = "button white";
 				document.querySelector("#buttonEqual").className = "button black";
   				break;  				
 		}
 	};
 
+	//a -> 97  -> green
+	//w -> 119 -> blue
+	//d -> 100 -> red
+	//s -> 115 -> yellow
+	//z -> 122 -> black
+	//x -> 120 -> white
+	function handleButtonPress(event){
+		var colorPressed = "";
+		switch(event.charCode){
+			case 97:
+				colorPressed = "green";
+				break;
+			case 119:
+				colorPressed = "blue";
+				break;
+			case 100:
+				colorPressed = "red";
+				break;
+			case 115:
+				colorPressed = "yellow";
+				break;
+			case 122:
+				colorPressed = "black";
+				break;
+			case 120:
+				colorPressed = "white";
+				break;				
+		}
+
+		if(colorPressed != ""){
+			nextMove(colorPressed);
+		}
+	}
+
+	function nextMove(colorPressed){
+		if(level == 0){
+			if(colorPressed == "green"){
+			selectRow(1);
+			}
+		}
+	}
+
+	function selectRow(number){
+		document.querySelectorAll(".button").className = "button dark";
+	}
+
 	setColours();
+	addEventListener("keypress", handleButtonPress,false);
 })();
