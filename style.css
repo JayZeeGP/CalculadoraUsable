@@ -32,6 +32,14 @@
 	width: 100%;
 }
 
+.black {
+	background-color: black;
+}
+
+.blue {
+	background-color: blue;
+}
+
 .button {
 	border: 1px solid black;
 	border-radius: 5px;
@@ -41,9 +49,29 @@
 	padding: 1em;
 }
 
+.dark {
+	background-color: gray;
+}
+
+.green {
+	background-color: green;
+}
+
+.red {
+	background-color: red;
+}
+
 .row {
 	display: inline-block;
 	width: 100%;
+}
+
+.yellow {
+	background-color: yellow;
+}
+
+.white {
+	background-color: white;
 }
 
 span {
