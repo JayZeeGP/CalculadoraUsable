@@ -3,6 +3,8 @@
 	var firstNumber = 0;
 	var secondNumber = 0;
 	var operator = "";
+	var row = 0;
+	var floatNumber = false;
 
 	//a -> 97  -> green
 	//w -> 119 -> blue
@@ -47,6 +49,77 @@
 			}else if(colorPressed == "red"){
 				selectRow(3);
 			}
+		}else if(level == 1 && row != 0){
+			selectNumber(colorPressed);
+		}
+	}
+
+	function selectNumber(colorPressed){
+		if(row == 1){
+			switch(colorPressed){
+				case "blue":
+					document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+"7";
+					level = 1;
+					row = 0;
+					setColours();
+					break;
+				case "green":
+					document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+"4";
+					level = 1;
+					row = 0;
+					setColours();
+					break;
+				case "red":
+					document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+"1";
+					level = 1;
+					row = 0;
+					setColours();
+					break;
+				case "yellow":
+					document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+"0";		
+					level = 1;
+					row = 0;
+					setColours();
+					break;
+			}
+		}else if(row == 2){
+			switch(colorPressed){
+				case "blue":
+					document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+"8";
+					level = 1;
+					row = 0;
+					setColours();
+					break;
+				case "green":
+					document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+"5";
+					level = 1;
+					row = 0;
+					setColours();
+					break;
+				case "red":
+					document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+"2";
+					level = 1;
+					row = 0;
+					setColours();
+					break;
+				case "yellow":
+				if (floatNumber == false){
+					if(document.getElementById("result").innerHTML == ""){
+						document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+"0.";	
+					}else{
+						document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+".";
+					}
+					level = 0;
+					row = 0;
+					floatNumber = true;
+					setColours();
+					break;
+				}
+			}
+
+
+		}else if(row == 3){
+
 		}
 	}
 
@@ -60,18 +133,24 @@
 				document.querySelector("#button4").className = "button green";
 				document.querySelector("#button1").className = "button red";
 				document.querySelector("#button0").className = "button yellow";
+				level = 1;
+				row = 1;
 				break;
 			case 2:
 				document.querySelector("#button8").className = "button blue";
 				document.querySelector("#button5").className = "button green";
 				document.querySelector("#button2").className = "button red";
 				document.querySelector("#buttonDot").className = "button yellow";
+				level = 1;
+				row = 2;
 				break;
 			case 3:
 				document.querySelector("#button9").className = "button blue";
 				document.querySelector("#button6").className = "button green";
 				document.querySelector("#button3").className = "button red";
 				document.querySelector("#buttonNeg").className = "button yellow";
+				level = 1;
+				row = 3;
 				break;
 		}
 	}
