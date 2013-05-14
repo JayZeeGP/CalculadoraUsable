@@ -12,6 +12,9 @@
 	//s -> 115 -> yellow
 	//z -> 122 -> black
 	//x -> 120 -> white
+	function addChar(addedChar){
+		document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+addedChar;
+	}
 	function handleButtonPress(event){
 		var colorPressed = "";
 		switch(event.charCode){
@@ -41,7 +44,7 @@
 	}
 
 	function nextMove(colorPressed){
-		if(level == 0){
+		if(level == 0 || (level == 1 && row == 0)){
 			if(colorPressed == "green"){
 				selectRow(1);
 			}else if(colorPressed == "blue"){
@@ -58,25 +61,25 @@
 		if(row == 1){
 			switch(colorPressed){
 				case "blue":
-					document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+"7";
+					addChar("7");
 					level = 1;
 					row = 0;
 					setColours();
 					break;
 				case "green":
-					document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+"4";
+					addChar("4");
 					level = 1;
 					row = 0;
 					setColours();
 					break;
 				case "red":
-					document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+"1";
+					addChar("1");
 					level = 1;
 					row = 0;
 					setColours();
 					break;
 				case "yellow":
-					document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+"0";		
+					addChar("0");		
 					level = 1;
 					row = 0;
 					setColours();
@@ -85,19 +88,19 @@
 		}else if(row == 2){
 			switch(colorPressed){
 				case "blue":
-					document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+"8";
+					addChar("8");
 					level = 1;
 					row = 0;
 					setColours();
 					break;
 				case "green":
-					document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+"5";
+					addChar("5");
 					level = 1;
 					row = 0;
 					setColours();
 					break;
 				case "red":
-					document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+"2";
+					addChar("2");
 					level = 1;
 					row = 0;
 					setColours();
@@ -105,9 +108,9 @@
 				case "yellow":
 				if (floatNumber == false){
 					if(document.getElementById("result").innerHTML == ""){
-						document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+"0.";	
+						addChar("0.");	
 					}else{
-						document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+".";
+						addChar(".");
 					}
 					level = 0;
 					row = 0;
@@ -116,10 +119,33 @@
 					break;
 				}
 			}
-
-
 		}else if(row == 3){
-
+			switch(colorPressed){
+				case "blue":
+					addChar("9");
+					level = 1;
+					row = 0;
+					setColours();
+					break;
+				case "green":
+					addChar("6");
+					level = 1;
+					row = 0;
+					setColours();
+					break;
+				case "red":
+					addChar("3");
+					level = 1;
+					row = 0;
+					setColours();
+					break;
+				case "yellow":
+					document.getElementById("result").innerHTML = "-"+document.getElementById("result").innerHTML;		
+					level = 1;
+					row = 0;
+					setColours();
+					break;
+			}
 		}
 	}
 
