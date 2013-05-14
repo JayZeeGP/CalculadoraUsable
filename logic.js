@@ -51,6 +51,10 @@
 				selectRow(2);
 			}else if(colorPressed == "red"){
 				selectRow(3);
+			}else if(level == 1 && colorPressed == "yellow"){
+				level=2;
+				setColours();
+				//It is time to select operations!
 			}
 		}else if(level == 1 && row != 0){
 			selectNumber(colorPressed);
