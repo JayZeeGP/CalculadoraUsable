@@ -205,7 +205,7 @@
 					setColours();
 					break;
 				case "yellow":
-					document.getElementById("result").innerHTML = "-"+document.getElementById("result").innerHTML;		
+					document.getElementById("result").innerHTML = parseFloat(document.getElementById("result").innerHTML)*-1;		
 					level = 1;
 					row = 0;
 					setColours();
