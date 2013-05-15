@@ -1,10 +1,12 @@
 (function (){
-	var level = 0;
 	var firstNumber = 0;
-	var secondNumber = 0;
+	var floatNumber = false;
+	var level = 0;
 	var operator = "";
 	var row = 0;
-	var floatNumber = false;
+	var secondNumber = 0;
+	//If the operation is selected it also means that the first number is already introduced
+	var selectedOperation = "none";
 
 	//a -> 97  -> green
 	//w -> 119 -> blue
@@ -15,6 +17,13 @@
 	function addChar(addedChar){
 		document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+addedChar;
 	}
+
+	function getNumber(){
+		returnedValue = document.getElementById("result").innerHTML;
+		document.getElementById("result").innerHTML = "";
+		return returnedValue;
+	}
+
 	function handleButtonPress(event){
 		var colorPressed = "";
 		switch(event.charCode){
@@ -52,13 +61,65 @@
 			}else if(colorPressed == "red"){
 				selectRow(3);
 			}else if(level == 1 && colorPressed == "yellow"){
+				if(selectedOperation == "none"){
 				level=2;
 				setColours();
 				//It is time to select operations!
+				}else{
+					level=3;
+					setColours();
+				}
 			}
 		}else if(level == 1 && row != 0){
 			selectNumber(colorPressed);
+		}else if(level == 2){
+			if(colorPressed == "green"){
+				selectedOperation = "division";
+			}else if(colorPressed == "blue"){
+				selectedOperation = "addition";
+			}else if(colorPressed == "red"){
+				selectedOperation = "multiplication";	
+			}else if(colorPressed == "yellow"){
+				selectedOperation = "substraction";
+			}
+			firstNumber = getNumber();
+			floatNumber = false;
+			level = 0;
+			setColours();
+		}else if(level == 3){
+			if(colorPressed == "white"){
+				alert("Deleting");
+			}else if(colorPressed == "black"){
+				//It's time to operate!!!
+				secondNumber = getNumber();
+				operate();
+			}
 		}
+	}
+
+	function operate(){
+		first = parseFloat(firstNumber);
+		second = parseFloat(secondNumber);
+		result = 0.0;
+		switch(selectedOperation){
+			case "addition":
+				result = first+second;
+				break;
+			case "substraction":
+				result = first-second;
+				break;
+			case "multiplication":
+				result = first*second;
+				break;
+			case "division":
+				if(second == 0){
+					alert("DON'T DIVIDE BY 0!!! GAUSS FORBIDS IT!!!")
+				}else{
+					result = first/second;
+				}
+				break;
+		}
+		document.getElementById("result").innerHTML = result+"";
 	}
 
 	function selectNumber(colorPressed){
@@ -228,10 +289,17 @@
 				document.querySelector("#button3").className = "button red";
 				document.querySelector("#buttonNeg").className = "button red";
 				//Operations 
-				document.querySelector("#buttonPlus").className = "button yellow";
-				document.querySelector("#buttonDivide").className = "button yellow";
-				document.querySelector("#buttonMult").className = "button yellow";				
-				document.querySelector("#buttonMinus").className = "button yellow";
+				if(selectedOperation == "none"){
+					document.querySelector("#buttonPlus").className = "button yellow";
+					document.querySelector("#buttonDivide").className = "button yellow";
+					document.querySelector("#buttonMult").className = "button yellow";				
+					document.querySelector("#buttonMinus").className = "button yellow";
+				}else{
+					document.querySelector("#buttonPlus").className = "button dark";
+					document.querySelector("#buttonDivide").className = "button dark";
+					document.querySelector("#buttonMult").className = "button dark";				
+					document.querySelector("#buttonMinus").className = "button dark";
+				}
 				document.querySelector("#buttonDel").className = "button yellow";
 				document.querySelector("#buttonEqual").className = "button yellow";
 				break;
@@ -257,6 +325,28 @@
 				document.querySelector("#buttonDel").className = "button white";
 				document.querySelector("#buttonEqual").className = "button black";
   				break;  				
+  			case 3:	
+				//Numbers
+				document.querySelector("#button7").className = "button dark";
+				document.querySelector("#button4").className = "button dark";
+				document.querySelector("#button1").className = "button dark";
+				document.querySelector("#button0").className = "button dark";
+				document.querySelector("#button8").className = "button dark";
+				document.querySelector("#button5").className = "button dark";
+				document.querySelector("#button2").className = "button dark";
+				document.querySelector("#buttonDot").className = "button dark";
+				document.querySelector("#button9").className = "button dark";
+				document.querySelector("#button6").className = "button dark";
+				document.querySelector("#button3").className = "button dark";
+				document.querySelector("#buttonNeg").className = "button dark";
+				//Operations 
+				document.querySelector("#buttonPlus").className = "button dark"
+				document.querySelector("#buttonDivide").className = "button dark"
+				document.querySelector("#buttonMult").className = "button dark"
+				document.querySelector("#buttonMinus").className = "button dark"
+				document.querySelector("#buttonDel").className = "button white";
+				document.querySelector("#buttonEqual").className = "button black";
+				break;
 		}
 	};
 
