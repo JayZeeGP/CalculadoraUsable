@@ -2,7 +2,6 @@
 	var firstNumber = 0;
 	var floatNumber = false;
 	var level = 0;
-	var operator = "";
 	var row = 0;
 	var secondNumber = 0;
 	//If the operation is selected it also means that the first number is already introduced
