@@ -1,5 +1,5 @@
 (function (){
-	var firstNumber = 0;
+	var firstNumber = false;
 	var floatNumber = false;
 	var level = 0;
 	var row = 0;
@@ -14,7 +14,11 @@
 	//z -> 122 -> black
 	//x -> 120 -> white
 	function addChar(addedChar){
-		document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+addedChar;
+		if (firstNumber != result) {
+			document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+addedChar;
+		} else {
+			document.getElementById("result").innerHTML = addedChar;
+		}
 	}
 
 	function getNumber(){
@@ -118,7 +122,13 @@
 				}
 				break;
 		}
-		document.getElementById("result").innerHTML = result+"";
+
+		level = 1;
+		row = 0;
+		selectedOperation = "none";
+		firstNumber = result;
+		setColours();
+		document.getElementById("result").innerHTML = result;
 	}
 
 	function selectNumber(colorPressed){
