@@ -65,6 +65,7 @@ span {
 	display: inline-block;
 	margin-left: 1%;
 	margin-right: 1%;
+	min-height: 1.3em;
 	padding: 1%;
 	text-align: right;
 	width: 96%;
@@ -124,6 +125,7 @@ span {
 	border-radius: 5px;
 	display: inline-block;
 	margin: 2%;
+	min-width: .8em;
 	padding: 1em;
 }
 
@@ -236,4 +238,8 @@ span {
 	text-shadow:
 		0px -1px 0px rgba(000,000,000,0.4),
 		0px 1px 0px rgba(255,255,255,0.3);
+}
+
+#buttonEqual {
+	min-width: 2em;
 }
