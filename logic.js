@@ -2,7 +2,8 @@
 	var firstNumber = false;
 	var floatNumber = false;
 	var level = 0;
-	var row = 0;
+	var oldLevel = 0;
+	var column = 0;
 	var secondNumber = 0;
 	//If the operation is selected it also means that the first number is already introduced
 	var selectedOperation = "none";
@@ -56,25 +57,31 @@
 	}
 
 	function nextMove(colorPressed){
-		if(level == 0 || (level == 1 && row == 0)){
+		if(level == 0 || (level == 1 && column == 0)){
 			if(colorPressed == "green"){
-				selectRow(1);
+				selectColumn(1);
 			}else if(colorPressed == "blue"){
-				selectRow(2);
+				selectColumn(2);
 			}else if(colorPressed == "red"){
-				selectRow(3);
+				selectColumn(3);
 			}else if(level == 1 && colorPressed == "yellow"){
 				if(selectedOperation == "none"){
-				level=2;
-				setColours();
-				//It is time to select operations!
+					level=2;
+					setColours();
+					//It is time to select operations!
 				}else{
 					level=3;
 					setColours();
 				}
 			}
-		}else if(level == 1 && row != 0){
-			selectNumber(colorPressed);
+		}else if(level == 1 && column != 0){
+			if (colorPressed != "white") {
+				selectNumber(colorPressed);
+			} else {
+				level = oldLevel;
+				column = 0;
+				setColours();
+			}
 		}else if(level == 2){
 			if(colorPressed == "green"){
 				selectedOperation = "division";
@@ -87,11 +94,15 @@
 			}
 			firstNumber = getNumber();
 			floatNumber = false;
+			oldLevel = level;
 			level = 0;
 			setColours();
 		}else if(level == 3){
 			if(colorPressed == "white"){
-				alert("Deleting");
+				document.getElementById("result").innerHTML = "";
+				level = 0;
+				column = 0;
+				setColours();
 			}else if(colorPressed == "black"){
 				//It's time to operate!!!
 				secondNumber = getNumber();
@@ -123,8 +134,9 @@
 				break;
 		}
 
+		oldLevel = level;
 		level = 1;
-		row = 0;
+		column = 0;
 		selectedOperation = "none";
 		firstNumber = result;
 		setColours();
@@ -132,51 +144,58 @@
 	}
 
 	function selectNumber(colorPressed){
-		if(row == 1){
+		if(column == 1){
 			switch(colorPressed){
 				case "blue":
 					addChar("7");
+					oldLevel = level;
 					level = 1;
-					row = 0;
+					column = 0;
 					setColours();
 					break;
 				case "green":
 					addChar("4");
+					oldLevel = level;
 					level = 1;
-					row = 0;
+					column = 0;
 					setColours();
 					break;
 				case "red":
 					addChar("1");
+					oldLevel = level;
 					level = 1;
-					row = 0;
+					column = 0;
 					setColours();
 					break;
 				case "yellow":
-					addChar("0");		
+					addChar("0");
+					oldLevel = level;	
 					level = 1;
-					row = 0;
+					column = 0;
 					setColours();
 					break;
 			}
-		}else if(row == 2){
+		}else if(column == 2){
 			switch(colorPressed){
 				case "blue":
 					addChar("8");
+					oldLevel = level;
 					level = 1;
-					row = 0;
+					column = 0;
 					setColours();
 					break;
 				case "green":
 					addChar("5");
+					oldLevel = level;
 					level = 1;
-					row = 0;
+					column = 0;
 					setColours();
 					break;
 				case "red":
 					addChar("2");
+					oldLevel = level;
 					level = 1;
-					row = 0;
+					column = 0;
 					setColours();
 					break;
 				case "yellow":
@@ -186,44 +205,49 @@
 					}else{
 						addChar(".");
 					}
+					oldLevel = level;
 					level = 0;
-					row = 0;
+					column = 0;
 					floatNumber = true;
 					setColours();
 					break;
 				}
 			}
-		}else if(row == 3){
+		}else if(column == 3){
 			switch(colorPressed){
 				case "blue":
 					addChar("9");
+					oldLevel = level;
 					level = 1;
-					row = 0;
+					column = 0;
 					setColours();
 					break;
 				case "green":
 					addChar("6");
+					oldLevel = level;
 					level = 1;
-					row = 0;
+					column = 0;
 					setColours();
 					break;
 				case "red":
 					addChar("3");
+					oldLevel = level;
 					level = 1;
-					row = 0;
+					column = 0;
 					setColours();
 					break;
 				case "yellow":
-					document.getElementById("result").innerHTML = parseFloat(document.getElementById("result").innerHTML)*-1;		
+					document.getElementById("result").innerHTML = parseFloat(document.getElementById("result").innerHTML)*-1;
+					oldLevel = level;		
 					level = 1;
-					row = 0;
+					column = 0;
 					setColours();
 					break;
 			}
 		}
 	}
 
-	function selectRow(number){
+	function selectColumn(number){
 		for (var i = 0; i < document.querySelectorAll(".button").length; i++){
 			document.querySelectorAll(".button")[i].className = "button dark";	
 		}
@@ -233,24 +257,27 @@
 				document.querySelector("#button4").className = "button green";
 				document.querySelector("#button1").className = "button red";
 				document.querySelector("#button0").className = "button yellow";
+				oldLevel = level;
 				level = 1;
-				row = 1;
+				column = 1;
 				break;
 			case 2:
 				document.querySelector("#button8").className = "button blue";
 				document.querySelector("#button5").className = "button green";
 				document.querySelector("#button2").className = "button red";
 				document.querySelector("#buttonDot").className = "button yellow";
+				oldLevel = level;
 				level = 1;
-				row = 2;
+				column = 2;
 				break;
 			case 3:
 				document.querySelector("#button9").className = "button blue";
 				document.querySelector("#button6").className = "button green";
 				document.querySelector("#button3").className = "button red";
 				document.querySelector("#buttonNeg").className = "button yellow";
+				oldLevel = level;
 				level = 1;
-				row = 3;
+				column = 3;
 				break;
 		}
 	}
@@ -258,17 +285,17 @@
 	function setColours(){
 		switch(level){
 			case 0: //Beggining the introduction of a number
-		  		//First row
+		  		//First column
 				document.querySelector("#button7").className = "button green";
 				document.querySelector("#button4").className = "button green";
 				document.querySelector("#button1").className = "button green";
 				document.querySelector("#button0").className = "button green";
-				//Second row
+				//Second column
 				document.querySelector("#button8").className = "button blue";
 				document.querySelector("#button5").className = "button blue";
 				document.querySelector("#button2").className = "button blue";
 				document.querySelector("#buttonDot").className = "button blue";
-				//Third row
+				//Third column
 				document.querySelector("#button9").className = "button red";
 				document.querySelector("#button6").className = "button red";
 				document.querySelector("#button3").className = "button red";
@@ -282,17 +309,17 @@
 				document.querySelector("#buttonEqual").className = "button dark";
   				break;
 			case 1: //First digit introduced
-		  		//First row
+		  		//First column
 				document.querySelector("#button7").className = "button green";
 				document.querySelector("#button4").className = "button green";
 				document.querySelector("#button1").className = "button green";
 				document.querySelector("#button0").className = "button green";
-				//Second row
+				//Second column
 				document.querySelector("#button8").className = "button blue";
 				document.querySelector("#button5").className = "button blue";
 				document.querySelector("#button2").className = "button blue";
 				document.querySelector("#buttonDot").className = "button blue";
-				//Third row
+				//Third column
 				document.querySelector("#button9").className = "button red";
 				document.querySelector("#button6").className = "button red";
 				document.querySelector("#button3").className = "button red";
