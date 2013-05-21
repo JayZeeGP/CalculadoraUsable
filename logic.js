@@ -1,4 +1,6 @@
 (function (){
+	var aboutCounter = 0;
+	var divAbout;
 	var firstNumber = false;
 	var floatNumber = false;
 	var level = 0;
@@ -14,6 +16,14 @@
 	//s -> 115 -> yellow
 	//z -> 120 -> black
 	//x -> 122 -> white
+
+	function about() {
+		divAbout = document.createElement("div");
+		divAbout.id = "about";
+		divAbout.innerHTML = "<b>CALCULADORA USABLE 0.1a</b><br><br>Desarrollada por:<br><br><b>Jos&eacute Carlos Garrido P&eacuterez</b> (i62gapej@uco.es)<br><b>Rub&eacuten Salado Cid</b> (i62sacir@uco.es)<br><br>Interacci&oacuten Persona-Ordenador<br>Ingenier&iacutea en Inform&aacutetica<br>Escuela Polit&eacutecnica Superior<br>Universidad de C&oacuterdoba<br>Curso 2012/2013";
+		document.body.appendChild(divAbout);
+	}
+
 	function addChar(addedChar){
 		if (firstNumber != result) {
 			document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+addedChar;
@@ -72,6 +82,15 @@
 				}else{
 					level=3;
 					setColours();
+				}
+			} else if(colorPressed == "black") {
+				aboutCounter += 1;
+
+				if (aboutCounter == 5) {
+					about();
+				} else if (aboutCounter == 6) {
+					document.body.removeChild(divAbout);
+					aboutCounter = 0;
 				}
 			}
 		}else if(level == 1 && column != 0){
