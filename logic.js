@@ -12,8 +12,8 @@
 	//w -> 119 -> blue
 	//d -> 100 -> red
 	//s -> 115 -> yellow
-	//z -> 122 -> black
-	//x -> 120 -> white
+	//z -> 120 -> black
+	//x -> 122 -> white
 	function addChar(addedChar){
 		if (firstNumber != result) {
 			document.getElementById("result").innerHTML = document.getElementById("result").innerHTML+addedChar;
@@ -44,10 +44,10 @@
 				colorPressed = "yellow";
 				break;
 			case 122:
-				colorPressed = "black";
+				colorPressed = "white";
 				break;
 			case 120:
-				colorPressed = "white";
+				colorPressed = "black";
 				break;				
 		}
 
@@ -83,20 +83,22 @@
 				setColours();
 			}
 		}else if(level == 2){
-			if(colorPressed == "green"){
-				selectedOperation = "division";
-			}else if(colorPressed == "blue"){
-				selectedOperation = "addition";
-			}else if(colorPressed == "red"){
-				selectedOperation = "multiplication";	
-			}else if(colorPressed == "yellow"){
-				selectedOperation = "substraction";
+			if(colorPressed != "black") {
+				if(colorPressed == "green"){
+					selectedOperation = "division";
+				}else if(colorPressed == "blue"){
+					selectedOperation = "addition";
+				}else if(colorPressed == "red"){
+					selectedOperation = "multiplication";	
+				}else if(colorPressed == "yellow"){
+					selectedOperation = "substraction";
+				}
+				firstNumber = getNumber();
+				floatNumber = false;
+				oldLevel = level;
+				level = 0;
+				setColours();
 			}
-			firstNumber = getNumber();
-			floatNumber = false;
-			oldLevel = level;
-			level = 0;
-			setColours();
 		}else if(level == 3){
 			if(colorPressed == "white"){
 				document.getElementById("result").innerHTML = "";
@@ -237,11 +239,13 @@
 					setColours();
 					break;
 				case "yellow":
-					document.getElementById("result").innerHTML = parseFloat(document.getElementById("result").innerHTML)*-1;
-					oldLevel = level;		
-					level = 1;
-					column = 0;
-					setColours();
+					if(document.getElementById("result").innerHTML != "") { 
+						document.getElementById("result").innerHTML = parseFloat(document.getElementById("result").innerHTML)*-1;
+						oldLevel = level;		
+						level = 1;
+						column = 0;
+						setColours();
+					}
 					break;
 			}
 		}
@@ -274,7 +278,12 @@
 				document.querySelector("#button9").className = "button blue";
 				document.querySelector("#button6").className = "button green";
 				document.querySelector("#button3").className = "button red";
-				document.querySelector("#buttonNeg").className = "button yellow";
+
+				if (document.querySelector("#result").innerHTML == "") {
+					document.querySelector("#buttonNeg").className = "button dark";
+				} else {
+					document.querySelector("#buttonNeg").className = "button yellow";
+				}
 				oldLevel = level;
 				level = 1;
 				column = 3;
@@ -359,7 +368,11 @@
 				document.querySelector("#buttonMult").className = "button red";
 				document.querySelector("#buttonMinus").className = "button yellow";
 				document.querySelector("#buttonDel").className = "button white";
-				document.querySelector("#buttonEqual").className = "button black";
+				if(selectedOperation != "none") {
+					document.querySelector("#buttonEqual").className = "button black";
+				} else {
+					document.querySelector("#buttonEqual").className = "button dark";					
+				}
   				break;  				
   			case 3:	
 				//Numbers
