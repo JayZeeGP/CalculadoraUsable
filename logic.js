@@ -78,7 +78,6 @@
 				if(selectedOperation == "none"){
 					level=2;
 					setColours();
-					//It is time to select operations!
 				}else{
 					level=3;
 					setColours();
@@ -102,7 +101,7 @@
 				setColours();
 			}
 		}else if(level == 2){
-			if(colorPressed != "black") {
+			if(colorPressed != "black" && colorPressed != "white") {
 				if(colorPressed == "green"){
 					selectedOperation = "division";
 				}else if(colorPressed == "blue"){
@@ -113,19 +112,26 @@
 					selectedOperation = "substraction";
 				}
 				firstNumber = getNumber();
-				floatNumber = false;
 				oldLevel = level;
+			} else if(colorPressed == "white") {
+				document.getElementById("result").innerHTML = "";
+				firstNumber = false;
 				level = 0;
-				setColours();
+				column = 0;
 			}
+
+			floatNumber = false;
+			level = 0;
+			setColours();
 		}else if(level == 3){
 			if(colorPressed == "white"){
 				document.getElementById("result").innerHTML = "";
+				firstNumber = false;
+				floatNumber = false;
 				level = 0;
 				column = 0;
 				setColours();
 			}else if(colorPressed == "black"){
-				//It's time to operate!!!
 				secondNumber = getNumber();
 				operate();
 			}
